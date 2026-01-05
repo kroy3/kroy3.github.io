@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kushal Raj Roy - Computational Biochemist specializing in protein structure, multi-omics integration, and ribosomal translocation mechanisms">
+    <meta name="keywords" content="computational biochemistry, protein structure, multi-omics, machine learning, ribosome, translational GTPases">
+    <meta name="author" content="Kushal Raj Roy">
+    <title>Kushal Raj Roy | Computational Biochemist</title>
+    
+    <!-- Fonts: Combining IBM Plex Mono for computational feel with Spectral for elegance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Spectral:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Color palette inspired by protein structures and computational grids */
+            --bg-primary: #0a0e14;
+            --bg-secondary: #151922;
+            --bg-tertiary: #1f2633;
+            --accent-cyan: #39bae6;
+            --accent-warm: #ff9d76;
+            --accent-purple: #a277ff;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --border-color: #30363d;
+            --glow-cyan: rgba(57, 186, 230, 0.15);
+            --glow-warm: rgba(255, 157, 118, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+        
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.15;
+            z-index: -1;
+            animation: gridMove 60s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        /* Decorative glow elements */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .glow-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--glow-cyan);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .glow-orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--glow-warm);
+            bottom: -50px;
+            left: -50px;
+            animation-delay: -10s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 30px) scale(1.1); }
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header/Hero Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 4rem 0;
+        }
+        
+        .hero-content {
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+        
+        .name-title {
+            font-family: 'Spectral', serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation-delay: 0.2s;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            animation-delay: 0.4s;
+            letter-spacing: 0.02em;
+        }
+        
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            animation-delay: 0.6s;
+        }
+        
+        .contact-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .contact-links a:hover {
+            color: var(--accent-cyan);
+            border-bottom-color: var(--accent-cyan);
+            transform: translateX(3px);
+        }
+        
+        /* Section Styling */
+        section {
+            padding: 6rem 0;
+            border-top: 1px solid var(--border-color);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-header {
+            font-family: 'Spectral', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .section-header::before {
+            content: '';
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--accent-cyan), transparent);
+        }
+        
+        .section-subheader {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+        
+        /* Research Focus */
+        .research-focus-text {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--text-secondary);
+            max-width: 900px;
+            background: var(--bg-secondary);
+            padding: 2.5rem;
+            border-left: 3px solid var(--accent-warm);
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        
+        /* Experience Cards */
+        .experience-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .experience-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .experience-card:hover {
+            transform: translateX(8px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        
+        .experience-card:hover::before {
+            opacity: 1;
+        }
+        
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .exp-title {
+            font-family: 'Spectral', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .exp-date {
+            color: var(--accent-warm);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .exp-role {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .exp-location {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .exp-description {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        .exp-description p {
+            margin-bottom: 0.8rem;
+        }
+        
+        /* Projects */
+        .project-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-title {
+            font-family: 'Spectral', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent-purple);
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-date {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+        
+        .project-tools {
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+        
+        .project-description {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        .project-description p {
+            margin-bottom: 0.8rem;
+        }
+        
+        /* Publications */
+        .publication {
+            background: var(--bg-secondary);
+            padding: 1.8rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-warm);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .publication:hover {
+            background: var(--bg-tertiary);
+            transform: translateX(5px);
+        }
+        
+        .pub-authors {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .pub-title {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+        
+        .pub-venue {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        
+        .pub-doi {
+            font-size: 0.8rem;
+        }
+        
+        .pub-doi a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .pub-doi a:hover {
+            border-bottom-color: var(--accent-cyan);
+        }
+        
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-category {
+            background: var(--bg-secondary);
+            padding: 1.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-category:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-5px);
+        }
+        
+        .skill-category-title {
+            font-family: 'Spectral', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .skill-category-title::before {
+            content: '▹';
+            color: var(--accent-warm);
+        }
+        
+        .skill-list {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        /* Education */
+        .education-item {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+        
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .edu-degree {
+            font-family: 'Spectral', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .edu-gpa {
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+        }
+        
+        .edu-school {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .edu-location {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        /* Awards */
+        .awards-list {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .award-item {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-purple);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .award-item:hover {
+            background: var(--bg-tertiary);
+            transform: translateX(5px);
+        }
+        
+        .award-name {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        
+        .award-year {
+            color: var(--accent-warm);
+            font-size: 0.85rem;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            animation: bounce 2s infinite;
+            opacity: 0.6;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            section {
+                padding: 4rem 0;
+            }
+            
+            .name-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-header {
+                font-size: 2rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .exp-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative glow orbs -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    
+    <!-- Hero Section -->
+    <header>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="name-title">Kushal Raj Roy</h1>
+                <p class="tagline">Computational Biochemist | Bridging Protein Structure & Multi-Omics | Ribosomal Translocation Mechanisms</p>
+                
+                <div class="contact-links">
+                    <a href="mailto:kroy3@uh.edu">
+                        <span>→</span> kroy3@uh.edu
+                    </a>
+                    <a href="mailto:kushalrajroy1@gmail.com">
+                        <span>→</span> kushalrajroy1@gmail.com
+                    </a>
+                    <a href="tel:+13465416791">
+                        <span>→</span> +1-346-541-6791
+                    </a>
+                    <a href="https://linkedin.com/in/kroy3" target="_blank">
+                        <span>→</span> LinkedIn
+                    </a>
+                    <a href="https://github.com/kroy3" target="_blank">
+                        <span>→</span> GitHub
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=r1FaK8QAAAAJ&hl=en" target="_blank">
+                        <span>→</span> Google Scholar
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">↓ scroll</div>
+    </header>
+    
+    <!-- Research Focus -->
+    <section id="research" class="visible">
+        <div class="container">
+            <h2 class="section-header">Research Focus</h2>
+            <div class="research-focus-text">
+                Computational biochemist bridging protein structure and multi-omics. On the protein side, I investigate translational GTPases and ribosomal translocation using structural analysis, protein modeling, and targeted biochemical assays to link conformational dynamics to function. On the omics side, I build interpretable machine learning and deep learning pipelines that integrate mRNA, miRNA (and pathway/proteomic features when available) to model disease progression and uncover regulatory networks. Together, these approaches connect mechanism at the ribosome with systems-level signals, yielding testable hypotheses and clinically relevant biomarkers.
+            </div>
+        </div>
+    </section>
+    
+    <!-- Genoproteomics Initiative -->
+    <section id="genoproteomics">
+        <div class="container">
+            <h2 class="section-header">Genoproteomics Initiative</h2>
+            <p class="section-subheader">Founder & Principal Investigator</p>
+            
+            <div style="background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%); padding: 3rem; border-radius: 12px; border: 1px solid var(--accent-purple); position: relative; overflow: hidden; margin-bottom: 2rem;">
+                <!-- Decorative accent -->
+                <div style="position: absolute; top: 0; left: 0; width: 6px; height: 100%; background: linear-gradient(to bottom, var(--accent-purple), var(--accent-cyan));"></div>
+                
+                <div style="position: relative; z-index: 1;">
+                    <h3 style="font-family: 'Spectral', serif; font-size: 2rem; font-weight: 700; color: var(--accent-purple); margin-bottom: 1rem;">
+                        From Genotype to Proteotype
+                    </h3>
+                    
+                    <p style="font-size: 1.1rem; line-height: 1.9; color: var(--text-secondary); margin-bottom: 2rem; font-style: italic;">
+                        Not stopping at RNA—decoding the complete language between genes and proteins.
+                    </p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 600; color: var(--accent-cyan); margin-bottom: 0.3rem;">20K+</div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">Human Protein Genes</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 600; color: var(--accent-cyan); margin-bottom: 0.3rem;">~1M</div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">Protein Variants Per Person</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 600; color: var(--accent-cyan); margin-bottom: 0.3rem;">400+</div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">PTM Types Discovered</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 600; color: var(--accent-cyan); margin-bottom: 0.3rem;">80%</div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">Disease Variants Unexplained</div>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 0.95rem; line-height: 1.9; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                        For decades, we've sequenced genomes and measured transcripts, believing RNA would tell us everything about cellular function. It doesn't. Proteins are the true molecular machines of life—the workhorses that execute virtually every function in every cell. Genoproteomics bridges this gap by systematically mapping how every genetic variant shapes the proteome—structure, modifications, interactions, and dynamics.
+                    </p>
+                    
+                    <div style="margin-top: 2rem;">
+                        <a href="https://genoproteomics.github.io/" target="_blank" style="display: inline-block; background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); color: var(--bg-primary); padding: 0.9rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease; border: none;">
+                            Visit Genoproteomics Website →
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Research Areas -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div style="background: var(--bg-secondary); padding: 2rem; border-radius: 8px; border: 1px solid var(--border-color); transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent-purple)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform='translateY(0)';">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🧬</div>
+                    <h4 style="font-family: 'Spectral', serif; font-size: 1.2rem; font-weight: 600; color: var(--accent-purple); margin-bottom: 0.8rem;">Computational Genoproteomics</h4>
+                    <p style="font-size: 0.9rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 0.8rem;">AI models and pipelines to predict how genetic variants affect protein structure, stability, dynamics, and function.</p>
+                    <p style="font-size: 0.85rem; color: var(--accent-cyan);">Deep Learning • pQTL Mapping • Multi-omics</p>
+                </div>
+                
+                <div style="background: var(--bg-secondary); padding: 2rem; border-radius: 8px; border: 1px solid var(--border-color); transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent-purple)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform='translateY(0)';">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🔬</div>
+                    <h4 style="font-family: 'Spectral', serif; font-size: 1.2rem; font-weight: 600; color: var(--accent-purple); margin-bottom: 0.8rem;">Structural Genoproteomics</h4>
+                    <p style="font-size: 0.9rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 0.8rem;">Mapping structural consequences of genetic variation using AlphaFold, MD simulations, and experimental structure determination.</p>
+                    <p style="font-size: 0.85rem; color: var(--accent-cyan);">AlphaFold • Cryo-EM • MD Simulations</p>
+                </div>
+                
+                <div style="background: var(--bg-secondary); padding: 2rem; border-radius: 8px; border: 1px solid var(--border-color); transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent-purple)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform='translateY(0)';">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">💊</div>
+                    <h4 style="font-family: 'Spectral', serif; font-size: 1.2rem; font-weight: 600; color: var(--accent-purple); margin-bottom: 0.8rem;">Translational Genoproteomics</h4>
+                    <p style="font-size: 0.9rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 0.8rem;">Applying genoproteomics to precision medicine, drug discovery, and clinical diagnostics.</p>
+                    <p style="font-size: 0.85rem; color: var(--accent-cyan);">Pharmacogenomics • Biomarkers • Drug Targets</p>
+                </div>
+            </div>
+            
+            <!-- Mission Statement -->
+            <div style="background: var(--bg-secondary); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-warm);">
+                <p style="font-size: 1rem; line-height: 1.9; color: var(--text-secondary); font-style: italic;">
+                    "The genome promised everything. It delivered half. Proteins are the true molecular machines of life. Genoproteomics systematically maps how genetic variants shape the complete proteome—not predictions, but direct, measurable, actionable protein phenotypes for precision medicine and drug discovery."
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-header">Experience</h2>
+            <p class="section-subheader">Research & Teaching Positions</p>
+            
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 class="exp-title">University of Houston</h3>
+                            <p class="exp-role">Graduate Research Assistant (Wang Lab)</p>
+                            <p class="exp-location">Department of Biology and Biochemistry, Houston, TX</p>
+                        </div>
+                        <span class="exp-date">Jan 2025 – Dec 2025</span>
+                    </div>
+                    <div class="exp-description">
+                        <p>Investigating the mechanism of ribosomal translocation using single-molecule FRET to dissect elongation factor function during translation.</p>
+                        <p>Studying translational GTPases (e.g., EF-G) to understand how these factors coordinate movement of tRNA and mRNA on the ribosome.</p>
+                        <p>Building analysis workflows to interpret conformational states and dynamics during translation.</p>
+                        <p>Supporting lab instrumentation, including liquid chromatography–mass spectrometry workflow (Waters UPLC-QDa) for RNA/oligo quality control and method optimization.</p>
+                    </div>
+                </div>
+                
+                <div class="experience-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 class="exp-title">University of Houston</h3>
+                            <p class="exp-role">Graduate Teaching Assistant</p>
+                            <p class="exp-location">Houston, TX</p>
+                        </div>
+                        <span class="exp-date">Aug 2022 – Dec 2024</span>
+                    </div>
+                    <div class="exp-description">
+                        <p>Instructional TA for Biochemistry I (BCHS 3304); led exam reviews, supported assessment, and covered metabolism, enzymology, protein structure, and kinetics.</p>
+                        <p>Teaching Assistant for Introductory Biology labs (BIOL 1106); guided students in experimental technique, data handling, and safety (mentor: Dr. Ana Medrano).</p>
+                        <p>Supported General / Organic Chemistry (CHEM 1106, 1112) lab sections: wet-lab technique, safety, and analytical reporting.</p>
+                    </div>
+                </div>
+                
+                <div class="experience-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 class="exp-title">Savitribai Phule Pune University</h3>
+                            <p class="exp-role">Project Intern</p>
+                            <p class="exp-location">Pune, Maharashtra, India</p>
+                        </div>
+                        <span class="exp-date">Nov 2019 – Nov 2020</span>
+                    </div>
+                    <div class="exp-description">
+                        <p>Studied drug candidates that inhibit human islet amyloid polypeptide (hIAPP) relevant to Type 2 Diabetes.</p>
+                        <p>Used INS-1E cell culture to analyze signaling proteins (AKT, Bax/Bcl-2) and assess apoptotic vs survival pathways.</p>
+                        <p>Performed western blot analysis and ran molecular dynamics simulations (Modeller, GROMACS, NAMD, VMD).</p>
+                    </div>
+                </div>
+                
+                <div class="experience-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 class="exp-title">Savitribai Phule Pune University</h3>
+                            <p class="exp-role">Summer Research Intern</p>
+                            <p class="exp-location">Pune, India</p>
+                        </div>
+                        <span class="exp-date">Apr 2019 – Aug 2019</span>
+                    </div>
+                    <div class="exp-description">
+                        <p>Research internship in small-molecule discovery targeting sickle cell disease.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Research Projects -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-header">Research Projects</h2>
+            <p class="section-subheader">Current & Recent Investigations</p>
+            
+            <div class="project-card">
+                <h3 class="project-title">Mechanism of Ribosomal Translocation via Single-Molecule FRET</h3>
+                <p class="project-date">May 2023 – Present</p>
+                <p class="project-tools">Tools: single-molecule FRET, ribosome translocation assays, elongation factor functional analysis</p>
+                <div class="project-description">
+                    <p>Using single-molecule FRET to probe how elongation factors (e.g., EF-G) drive ribosomal translocation and maintain translation efficiency and fidelity.</p>
+                    <p>Dissecting conformational changes during tRNA/mRNA movement on the ribosome.</p>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h3 class="project-title">Structural Evolution of Translational GTPases</h3>
+                <p class="project-date">May 2023 – Present</p>
+                <p class="project-tools">Tools: Python, R, ProDy, PyMOL, ChimeraX, IQ-TREE2</p>
+                <div class="project-description">
+                    <p>Built an automated pipeline for large-scale all-vs-all structural alignment of translational GTPase G-domains (EF-G, EF-Tu, EF-2, EF-4, TetM/O).</p>
+                    <p>Calculated RMSD / TM-score matrices and mapped conserved "core" vs variable regions to infer evolutionary divergence.</p>
+                    <p>Integrated structural clustering with phylogeny to propose how the ancestral G-domain diversified into modern translation factors.</p>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h3 class="project-title">hIAPP Inhibition and Type 2 Diabetes Model System</h3>
+                <p class="project-date">Nov 2019 – Nov 2020</p>
+                <p class="project-tools">Tools: INS-1E cell culture, AKT/Bax-Bcl-2 signaling, western blotting, Modeller, GROMACS, NAMD, VMD</p>
+                <div class="project-description">
+                    <p>Screened small molecules targeting human islet amyloid polypeptide (hIAPP) aggregation relevant to Type 2 Diabetes.</p>
+                    <p>Ran molecular dynamics simulations and analyzed signaling responses (AKT, Bax/Bcl-2) to evaluate therapeutic potential.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Publications -->
+    <section id="publications">
+        <div class="container">
+            <h2 class="section-header">Publications & Preprints</h2>
+            <p class="section-subheader">Research Outputs</p>
+            
+            <div class="publication">
+                <p class="pub-authors">Roy, K.R.</p>
+                <p class="pub-title">View-Specific Preprocessing for Multi-Modal Integration Improves Breast Cancer Progression Prediction: A Machine Learning Analysis of TCGA-BRCA.</p>
+                <p class="pub-venue">Preprint (SSRN), 2025.</p>
+                <p class="pub-doi">DOI: <a href="https://doi.org/10.2139/ssrn.5876162" target="_blank">10.2139/ssrn.5876162</a></p>
+            </div>
+            
+            <div class="publication">
+                <p class="pub-authors">Moon, U.D., Roy, K.R.</p>
+                <p class="pub-title">Multi-Omic Integration and Machine Learning Reveal Regulatory Networks Driving Breast Cancer Progression.</p>
+                <p class="pub-venue">Preprint (Preprints.org), 2025.</p>
+                <p class="pub-doi">DOI: <a href="https://doi.org/10.20944/preprints202512.0929.v1" target="_blank">10.20944/preprints202512.0929.v1</a></p>
+            </div>
+            
+            <div class="publication">
+                <p class="pub-authors">Roy, K.R.</p>
+                <p class="pub-title">Machine Learning-Guided Catalyst Selection Reveals Nickel's Advantages Over Palladium in Suzuki-Miyaura Cross-Coupling.</p>
+                <p class="pub-venue">Preprint (ChemRxiv), 2025.</p>
+                <p class="pub-doi">URL: <a href="https://chemrxiv.org/engage/chemrxiv/article-details/6939438cbc44e47cf48d3b17" target="_blank">ChemRxiv Preprint</a></p>
+            </div>
+            
+            <div class="publication">
+                <p class="pub-authors">Roy, K.R.</p>
+                <p class="pub-title">[Publication Title - Please Update]</p>
+                <p class="pub-venue">Preprint (ChemRxiv), 2025.</p>
+                <p class="pub-doi">URL: <a href="https://chemrxiv.org/engage/chemrxiv/article-details/69497349e3cb457e133abf0a" target="_blank">ChemRxiv Preprint</a></p>
+            </div>
+            
+            <div class="publication">
+                <p class="pub-authors">Roy, K.R.</p>
+                <p class="pub-title">[Publication Title - Please Update]</p>
+                <p class="pub-venue">Preprint (EdArXiv), 2025.</p>
+                <p class="pub-doi">URL: <a href="https://osf.io/preprints/edarxiv/st34k_v1" target="_blank">EdArXiv Preprint</a></p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Software & Tools -->
+    <section id="software">
+        <div class="container">
+            <h2 class="section-header">Software & Tools</h2>
+            <p class="section-subheader">Open-Source Contributions</p>
+            
+            <div class="publication">
+                <p class="pub-authors">Roy, K.R.</p>
+                <p class="pub-title">rnaview - Python Package for RNA Structure Visualization and Analysis</p>
+                <p class="pub-venue">Python Package Index (PyPI), 2025.</p>
+                <p class="pub-doi">Package: <a href="https://pypi.org/project/rnaview/1.0.1/" target="_blank">pypi.org/project/rnaview/1.0.1</a></p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-header">Skills</h2>
+            <p class="section-subheader">Technical Expertise</p>
+            
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Computational / Programming</h3>
+                    <p class="skill-list">Python (NumPy, pandas, scikit-learn), Bash; Git/GitHub; Linux/SLURM for HPC workflows; large-scale data handling.</p>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Machine Learning & Deep Learning</h3>
+                    <p class="skill-list">Model training and analysis using PyTorch, TensorFlow, and Keras; classical ML with scikit-learn; dimensionality reduction (t-SNE, PCA); clustering and classification of structural/biophysical datasets.</p>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Structural & Biophysical Analysis</h3>
+                    <p class="skill-list">Single-molecule FRET; structural visualization and analysis in PyMOL and UCSF ChimeraX.</p>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Analytical Instrumentation</h3>
+                    <p class="skill-list">UPLC–MS / LC–MS (Waters UPLC-QDa); method development and optimization; targeted SIR channel setup; RNA / oligonucleotide QC; troubleshooting peak quality and carryover.</p>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Analytical Software</h3>
+                    <p class="skill-list">MassLynx, TargetLynx, OpenLynx, Skyline (basic).</p>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Molecular & Cellular</h3>
+                    <p class="skill-list">Mammalian cell culture (INS-1E); pathway interrogation of AKT and Bax/Bcl-2; apoptosis/survival assays; western blotting and densitometric interpretation.</p>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Genomics & Bioinformatics</h3>
+                    <p class="skill-list">Basic NGS analysis workflows; RNA handling; docking and molecular dynamics simulations (Modeller, GROMACS, NAMD, VMD).</p>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Teaching & Mentoring</h3>
+                    <p class="skill-list">Led Biochemistry I recitation sessions; supported Intro Biology, General Chemistry, and Organic Chemistry teaching labs; mentored summer interns (Welch Foundation).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Education -->
+    <section id="education">
+        <div class="container">
+            <h2 class="section-header">Education</h2>
+            <p class="section-subheader">Academic Background</p>
+            
+            <div class="education-item">
+                <div class="edu-header">
+                    <div>
+                        <h3 class="edu-degree">M.Sc. in Biochemistry (Graduate Researcher)</h3>
+                        <p class="edu-school">University of Houston</p>
+                        <p class="edu-location">Houston, TX, USA | Aug 2022 – 2025</p>
+                    </div>
+                    <span class="edu-gpa">GPA: 3.7 / 4.0</span>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">Research area: structural biochemistry of translation, ribosome translocation, and translational GTPases.</p>
+            </div>
+            
+            <div class="education-item">
+                <div class="edu-header">
+                    <div>
+                        <h3 class="edu-degree">M.Sc. in Biochemistry</h3>
+                        <p class="edu-school">Fergusson College (Autonomous)</p>
+                        <p class="edu-location">Pune, India | 2018 – 2020</p>
+                    </div>
+                    <span class="edu-gpa">GPA: 8.34 / 10.0</span>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">Focus: molecular biology, protein biochemistry, signaling, and disease pathways.</p>
+            </div>
+            
+            <div class="education-item">
+                <div class="edu-header">
+                    <div>
+                        <h3 class="edu-degree">B.Sc. in Microbiology (General)</h3>
+                        <p class="edu-school">Savitribai Phule Pune University</p>
+                        <p class="edu-location">Pune, India | 2014 – 2018</p>
+                    </div>
+                    <span class="edu-gpa">GPA: 7.5 / 10.0</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Awards -->
+    <section id="awards">
+        <div class="container">
+            <h2 class="section-header">Awards & Scholarships</h2>
+            <p class="section-subheader">Recognition & Funding</p>
+            
+            <div class="awards-list">
+                <div class="award-item">
+                    <span class="award-name">Graduate Tuition Fellowship – University of Houston</span>
+                    <span class="award-year">2022 – 2025</span>
+                </div>
+                
+                <div class="award-item">
+                    <span class="award-name">Bangladesh–Sweden Trust Fund Travel Award – International research travel support</span>
+                    <span class="award-year">2023</span>
+                </div>
+                
+                <div class="award-item">
+                    <span class="award-name">Tuition Fellowship (M.Sc. Biochemistry) – Fergusson College (Autonomous), Pune</span>
+                    <span class="award-year">2018 – 2020</span>
+                </div>
+                
+                <div class="award-item">
+                    <span class="award-name">ICCR Scholarship – Full funding for B.Sc. in Microbiology</span>
+                    <span class="award-year">2015 – 2018</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Kushal Raj Roy | Houston, TX, USA</p>
+            <p style="margin-top: 0.5rem; font-size: 0.75rem;">Last updated: January 2025</p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript for scroll animations -->
+    <script>
+        // Intersection Observer for section animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Hide scroll indicator after scrolling
+        let scrolled = false;
+        window.addEventListener('scroll', () => {
+            if (!scrolled && window.scrollY > 100) {
+                scrolled = true;
+                const indicator = document.querySelector('.scroll-indicator');
+                if (indicator) {
+                    indicator.style.opacity = '0';
+                    setTimeout(() => {
+                        indicator.style.display = 'none';
+                    }, 300);
+                }
+            }
+        });
+        
+        // Smooth scroll for anchor links (if you add navigation later)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
